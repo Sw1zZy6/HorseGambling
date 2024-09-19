@@ -47,12 +47,10 @@ func playGame(balance float64, bet float64) float64{
 		fmt.Println(list[i], ". ", horse.name, horse.time)
 	}
 
-	fmt.Println(" ")
-	fmt.Println("Which one of Horsey's Cousins would you like to bet on?\n")
+	fmt.Println("\nWhich one of Horsey's Cousins would you like to bet on?")
 	for i := 0; i < len(horses); i++ {
 		fmt.Println(horses[i].name)
 	}
-	fmt.Println("")
 
 	var chosenHorse string
 	fmt.Scanln(&chosenHorse)
@@ -80,7 +78,6 @@ func playGame(balance float64, bet float64) float64{
 		} else if (chosenHorse == horses[4].name) {
 			balance -= bet * 2
 		}
-		
 	}
 	return balance
 }
@@ -110,10 +107,8 @@ func main() {
 
 		if bet > balance {
 			fmt.Println("Insufficent Funds.")
-		} else {
-			
-		}
-		
+		} else {}
+	
 		balance = playGame(balance, bet)
 	}
 }
