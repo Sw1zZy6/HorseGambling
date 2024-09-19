@@ -18,14 +18,13 @@ func roundTime(value float64) float64 {
 	return float64(int(value*1000+0.5)) / 1000
 }
 
-
-func playGame() {
+func playGame(balance float64, bet float64) float64{
 	horses :=  []Horse{
-		{name: "Norsey", age: 4},
-		{name: "Worsey", age: 1},
-		{name: "Korsey", age: 2},
-		{name: "Forsey", age: 6},
-		{name: "Rob", age: 2},
+		{name: "norsey", age: 4},
+		{name: "worsey", age: 1},
+		{name: "korsey", age: 2},
+		{name: "forsey", age: 6},
+		{name: "rob", age: 2},
 	}
 
 	list := [5]string{
@@ -48,18 +47,51 @@ func playGame() {
 		fmt.Println(list[i], ". ", horse.name, horse.time)
 	}
 
+	fmt.Println(" ")
+	fmt.Println("Which one of Horsey's Cousins would you like to bet on?\n")
+	for i := 0; i < len(horses); i++ {
+		fmt.Println(horses[i].name)
+	}
+	fmt.Println("")
+
+	var chosenHorse string
+	fmt.Scanln(&chosenHorse)
+	
+	checkingChosenHorse := 0
+
+	for i := 0; i < len(horses); i++ {
+		if chosenHorse == horses[i].name{
+		} else {
+			checkingChosenHorse++
+		}
+	}
+
+	if checkingChosenHorse == 5 {
+		fmt.Println("Thats not an option, try again.")
+	} else {
+		fmt.Println("You have chosen: ", chosenHorse)
+	
+		if (chosenHorse == horses[0].name) {
+			balance += bet * 2
+		} else if (chosenHorse == horses[1].name) {
+			balance += bet 
+		} else if (chosenHorse == horses[3].name) {
+			balance -= bet 
+		} else if (chosenHorse == horses[4].name) {
+			balance -= bet * 2
+		}
+		
+	}
+	return balance
 }
 
 func main() {
-	balance := 100
-
-	playGame()
-
-	
+	balance := 100.0
 
 	for balance > 0 {
 		var input string
-		fmt.Printf("Your balance is: $%d ", balance) 
+		fmt.Println("")
+		fmt.Printf("Your balance is: $%.2f ", balance) 
 		fmt.Println("Enter your bet (q to quit): ") 
 		
 		fmt.Scanln(&input)
@@ -69,19 +101,20 @@ func main() {
 			break
 		}
 
-		bet, err := strconv.Atoi(input) 
+		bet, err := strconv.ParseFloat(input, 64)
+		
 		if err != nil {
 			fmt.Println("Invaild Input, Try again.")
 			continue
 		}
 
-		if balance > bet {
-			fmt.Println("Which one of Horsey's Cousins would you like to bet on?")
-
-			var chosenHorse string
-			fmt.Scanln(chosenHorse)
+		if bet > balance {
+			fmt.Println("Insufficent Funds.")
+		} else {
 			
 		}
+		
+		balance = playGame(balance, bet)
 	}
 }
 
