@@ -104,8 +104,6 @@ func playGame(balance float64, bet float64) float64{
 func main() {
 	balance := 100.0	
 
-
-
 	for balance > 0 {
 		var input string
 		fmt.Println("")
